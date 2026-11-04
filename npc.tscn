@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dvxax6pyqrwt4"]
+
+[ext_resource type="Texture2D" uid="uid://toy06mh7utdu" path="res://icon.svg" id="1_ideak"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_feb5d"]
+bounce = 2.7
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(128, 128)
+
+[node name="Npc" type="RigidBody2D" unique_id=1855094190]
+modulate = Color(1, 1, 0, 1)
+physics_material_override = SubResource("PhysicsMaterial_feb5d")
+gravity_scale = 0.0
+constant_force = Vector2(0.14, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1737507022]
+texture = ExtResource("1_ideak")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1838818263]
+shape = SubResource("RectangleShape2D_onrkg")

@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://4gmrjlcadqrm"]
+
+[ext_resource type="PackedScene" uid="uid://cpfx0unpd3mu" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://dvxax6pyqrwt4" path="res://npc.tscn" id="2_e2o6t"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_e2o6t"]
+device = -1
+keycode = 65
+unicode = 97
+
+[sub_resource type="Shortcut" id="Shortcut_e2o6t"]
+events = [SubResource("InputEventKey_e2o6t")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_feb5d"]
+device = -1
+keycode = 68
+unicode = 100
+
+[sub_resource type="Shortcut" id="Shortcut_fc0e3"]
+events = [SubResource("InputEventKey_feb5d")]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_feb5d"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e2o6t"]
+
+[node name="Game" type="Node2D" unique_id=549005521]
+
+[node name="Player" parent="." unique_id=1855094190 instance=ExtResource("1_80nbo")]
+position = Vector2(510, 94)
+collision_layer = 3
+mass = 0.001
+
+[node name="Npc" parent="." unique_id=691139918 instance=ExtResource("2_e2o6t")]
+position = Vector2(971, 378)
+angular_velocity = 6.2831855
+constant_force = Vector2(50, -25)
+constant_torque = 25.0
+
+[node name="Npc2" parent="." unique_id=537958639 instance=ExtResource("2_e2o6t")]
+position = Vector2(760, 518)
+angular_velocity = -1.2217305
+constant_force = Vector2(50, -25)
+constant_torque = -30.0
+
+[node name="Npc6" parent="." unique_id=16497097 instance=ExtResource("2_e2o6t")]
+position = Vector2(905, 603)
+angular_velocity = -1.2217305
+constant_force = Vector2(50, -25)
+constant_torque = -30.0
+
+[node name="Npc7" parent="." unique_id=1600902616 instance=ExtResource("2_e2o6t")]
+position = Vector2(630, 658)
+angular_velocity = 0.5235988
+constant_force = Vector2(50, -25)
+constant_torque = 50.0
+
+[node name="Npc3" parent="." unique_id=751811759 instance=ExtResource("2_e2o6t")]
+position = Vector2(485, 573)
+angular_velocity = 0.5235988
+constant_force = Vector2(50, -25)
+constant_torque = 50.0
+
+[node name="Npc8" parent="." unique_id=1680076191 instance=ExtResource("2_e2o6t")]
+position = Vector2(187, 598)
+angular_velocity = -0.87266463
+constant_force = Vector2(-5, -25)
+constant_torque = 25.0
+
+[node name="Npc4" parent="." unique_id=631635542 instance=ExtResource("2_e2o6t")]
+position = Vector2(42, 513)
+angular_velocity = -0.87266463
+constant_force = Vector2(-5, -25)
+constant_torque = 25.0
+
+[node name="Npc5" parent="." unique_id=1988624969 instance=ExtResource("2_e2o6t")]
+position = Vector2(1116, 463)
+linear_velocity = Vector2(0, 150)
+angular_velocity = 6.2831855
+constant_force = Vector2(50, -25)
+constant_torque = 25.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1858945569]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1561481803]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=630578874]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinLabel" type="Label" parent="CanvasLayer/MarginContainer" unique_id=1870112878]
+visible = false
+layout_mode = 2
+text = "Jesteś u szczytu kariery!"
+horizontal_alignment = 1
+
+[node name="LoseLabel" type="Label" parent="CanvasLayer/MarginContainer" unique_id=970073310]
+visible = false
+layout_mode = 2
+text = "Do szczytu dotrzesz tylko dzięki znajomościom.
+Taki mamy klimat."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1885202097]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=515716721]
+layout_mode = 2
+shortcut = SubResource("Shortcut_e2o6t")
+text = "<-"
+
+[node name="Button2" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1274962410]
+layout_mode = 2
+shortcut = SubResource("Shortcut_fc0e3")
+text = "->"
+
+[node name="WinBorder" type="Area2D" parent="." unique_id=1963354313]
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinBorder" unique_id=1842984977]
+shape = SubResource("WorldBoundaryShape2D_feb5d")
+
+[node name="LoseBorder" type="Area2D" parent="." unique_id=445140930]
+position = Vector2(413, 656)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoseBorder" unique_id=36182924]
+shape = SubResource("WorldBoundaryShape2D_e2o6t")
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Button" to="Player" method="apply_central_force" binds= [Vector2(-30, 0)]]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Button2" to="Player" method="apply_central_force" binds= [Vector2(30, 0)]]
+[connection signal="body_entered" from="WinBorder" to="CanvasLayer" method="show" unbinds=1]
+[connection signal="body_entered" from="WinBorder" to="CanvasLayer/MarginContainer/WinLabel" method="show" unbinds=1]
+[connection signal="body_entered" from="LoseBorder" to="CanvasLayer" method="show" unbinds=1]
+[connection signal="body_entered" from="LoseBorder" to="CanvasLayer/MarginContainer/WinLabel" method="hide" unbinds=1]
+[connection signal="body_entered" from="LoseBorder" to="CanvasLayer/MarginContainer/LoseLabel" method="show" unbinds=1]
